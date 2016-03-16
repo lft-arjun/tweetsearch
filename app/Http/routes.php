@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return Twitter::getUserTimeline(['screen_name' => 'thujohn', 'count' => 20, 'format' => 'json']);
+    // return view('welcome');
 });
 Route::get('search', ['uses' => 'TwitterController@getsearch', 'as' => 'search']);
 Route::post('twitter', ['uses' => 'TwitterController@posttweet', 'as' => 'twitter']);

@@ -1,10 +1,19 @@
 <html>
-    <head>
-        <title>App Name - @yield('title')</title>
-        <style type="text/css">
-          html, body { height: 100%; margin: 0; padding: 0; }
-          #map { height: 100%; }
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Complex icons</title>
+        <style>
+          html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+          #map {
+            height: 100%;
+          }
         </style>
+ 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <!-- Optional theme -->
