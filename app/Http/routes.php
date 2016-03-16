@@ -14,7 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('search', ['uses' => 'TwitterController@getsearch', 'as' => 'search']);
+Route::post('twitter', ['uses' => 'TwitterController@posttweet', 'as' => 'twitter']);
+ // Route::get('search', 'TwitterController@search');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -27,5 +29,6 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+   
+
 });
