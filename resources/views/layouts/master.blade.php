@@ -2,13 +2,13 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Complex icons</title>
+    <title>Search Tweets</title>
         <style>
-          html, body {
+          /*html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-          }
+          }*/
           #map {
             height: 100%;
           }
@@ -21,16 +21,10 @@
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     </head>
     <body>
-        @section('sidebar')
-            This is the master sidebar.
-        @show
-
         <div class="container">
             @yield('content')
         </div>
 
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        
-
-    </body>
+   </body>
 </html>

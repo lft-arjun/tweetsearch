@@ -26,7 +26,7 @@ class TwitterController extends Controller
         ->get();
 
         $stdClassObj = json_decode($response);
-        $km = "1km";
+        $km = "50km";
         $latitude = $stdClassObj->results[0]->geometry->location->lat;
         $longitude = $stdClassObj->results[0]->geometry->location->lng;
 
