@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+// Route::filter();
 Route::get('/', function () {
     return redirect()->route('tweets');
 });

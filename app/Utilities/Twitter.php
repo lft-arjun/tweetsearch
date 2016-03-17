@@ -3,24 +3,29 @@ namespace App\Utilities;
 
 use App\TwitterAPIExchange;
 /**
-*  Interact with Twitter API
+*  Utility class to tnteract with Twitter API
+*
+* @author Arjun Sunar <arjunkoid@gmail.com>
+* @package Utility
+* @license http://laravel.com
 *  
 */
 class Twitter
 {
 	/**
-	 * [$latitude description]
-	 * @var [type]
+	 * $latitude 
+	 * @var mixed
 	 */
 	public $latitude;
 	/**
-	 * [$longitude description]
-	 * @var [type]
+	 * $longitude 
+	 * @var mixed
 	 */
 	public $longitude;
 	/**
-	 * [getTweetsByCity fetch tweets by city with respect to lat, lat and 50km arround]
-	 * 
+	 * Fetch tweets by city with respect to lat, lat and 50km arround
+     * 
+	 * @throws \Exception
 	 * @return array $data
 	 */
 	public function getTweetsByCity()
@@ -56,7 +61,9 @@ class Twitter
 		}
 	}
 	/**
-	 * [processInTwitterAPI description]
+	 * Allow to process the twitter api to
+     * Fetch the tweets
+     * 
 	 * @param  string $url
 	 * @param  string $requestMethod 
 	 * @param  string $getfield 
@@ -75,9 +82,15 @@ class Twitter
 		return $twitterData;
 	}
 	/**
-	 * [buildTwitterAPIUrl description]
+	 * Build the url of twitter API
+     * The base url(https://api.twitter.com/1.1/)
+     * is configured in .env file and read
+     * $uri must be added to get full url
+     * For example /search/twitter.json, 
+     * /friends/list.json and so on.
+     *  
 	 * @param  string $uri
-	 * @return string   full url
+	 * @return string   $fullUrl
 	 */
 	public function buildTwitterAPIUrl($uri)
 	{
@@ -85,7 +98,10 @@ class Twitter
 		return $fullUrl;
 	}
 	/**
-	 * API key from Twitter
+	 * Set Twitter API credentials 
+     * It should be read from .env file
+     * To access the twitter api.API key 
+     * Must needed
 	 * 
 	 * @return array settings
 	 */

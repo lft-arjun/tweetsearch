@@ -26,7 +26,7 @@ class TwitterController extends Controller
     	try {
     		/**
     		 *  get current geo location by default
-    		 *  (while land the page) and display map with tweets
+    		 *  (while landing  page) and display map with tweets
     		 * @var GeoLocation
     		 */
 	    	$geoObj = new GeoLocation();
@@ -42,20 +42,16 @@ class TwitterController extends Controller
 
 		    } else {
 	    		//Get latitude and longitude from city 
-		    	$response = \GoogleMaps::load('geocoding')
-		        ->setParam (['address' => $city])
-		        ->get();
+		    	$stdClassObj = $geoObj->getGeoCodeByAddress($city);
+		    	$latitude = $stdClassObj->results[0]->geometry->location->lat;
+				$longitude = $stdClassObj->results[0]->geometry->location->lng;
 
-		        $stdClassObj = json_decode($response);
-		        
-		        $latitude = $stdClassObj->results[0]->geometry->location->lat;
-		        $longitude = $stdClassObj->results[0]->geometry->location->lng;
 		        $data = $this->processTweets($latitude, $longitude);
 			}
 
-    		return view('twitter',['twitterData'=> $data, 'lat'=>$latitude, 'long'=> $longitude, 'city' => $city]);
+    		return view('twitter/twitter',['twitterData'=> $data, 'lat'=>$latitude, 'long'=> $longitude, 'city' => $city]);
     	} catch(Exception $e) {
-    		Log::error('Tweet Result:', ['error' => $e->getMessage()]);
+    		Log::error('Error:', ['error' => $e->getMessage()]);
     	}
     }
     /**
