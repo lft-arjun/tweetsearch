@@ -5,64 +5,63 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\TwitterAPIExchange;
+use App\Utilities\Twitter;
+use App\Utilities\GeoLocation;
+use Log;
 
 class TwitterController extends Controller
 {
     
     public function getsearch()
     {
-    	
-    	// $data = $this->getResponseFromT();
-    	// dd($data);
-    	return view('searchform');
-    }
+    	// $ip = file_get_contents('https://api.ipify.org');
+    	// echo "My public IP address is: " . $ip;
+    	// $geoCode = unserialize (file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
 
+    	dd($geoCode);
+    	// $ob = new Twitter();
+    	// dd($ob->getTweetsByPlace());
+    	// // $data = $this->getResponseFromT();
+    	// // dd($data);
+    	// return view('searchform');
+    }
+    /**
+     * Fetch tweets from twitter search api
+     * 
+     * @param  Request $request [
+     * @return array tweets search result
+     */
     public function gettweet(Request $request)
     {
-    	$data = array();
-    	$latitude = 27;
-    	$longitude = 85;
-	    	$city = $request->get('search');
+    	try {
+	    	$data = array();
+	    	$geoObj = new GeoLocation();
+	    	$geoInfo = $geoObj->getLocationInfoByPublicId();
+	    	$latitude = $geoInfo['geoplugin_latitude'];
+	    	$longitude = $geoInfo['geoplugin_longitude'];
+		    $city = $request->get('search');
 	    	if ($city){
+	    		//Get latitude and longitude from city 
 		    	$response = \GoogleMaps::load('geocoding')
 		        ->setParam (['address' => $city])
 		        ->get();
 
 		        $stdClassObj = json_decode($response);
-		        $km = "50km";
+		        
 		        $latitude = $stdClassObj->results[0]->geometry->location->lat;
 		        $longitude = $stdClassObj->results[0]->geometry->location->lng;
 
-		        $settings = array(
-				    'oauth_access_token' => "546974375-3Blkj072NWAnyZCV1HZpv870KChdiHc4eaaLwV9g",
-				    'oauth_access_token_secret' => "DEjXEuNj8HtsTn4DH283FbV3YzthzZNqVTI02OlnxreEf",
-				    'consumer_key' => "Gki3J8QKp0AZ3AjSAmf2myUO0",
-				    'consumer_secret' => "7WNIuas3VzConhgcCXuXRE3IIEOLHxIU3rIGBMGmQ7z44DDkfu"
-					);
-					$url = 'https://api.twitter.com/1.1/search/tweets.json';
-					$getfield = "?q=''&geocode=".$latitude .",".$longitude ."," .$km.'"';
-					$requestMethod = 'GET';
+		        $objects = new Twitter();
+		        $objects->latitude = $latitude;
+		        $objects->longitude = $longitude;
+				$data = $objects->getTweetsByCity();
 
-					$twitter = new TwitterAPIExchange($settings);
-					$response = $twitter->setGetfield($getfield)
-					    ->buildOauth($url, $requestMethod)
-					    ->performRequest();
+			}
 
-					$twitterData = json_decode($response);
-					
-					$data = array();
-					foreach ($twitterData->statuses as $key => $value) {
-						$data[$key][] = null;
-						$data[$key][] = (!empty($value->coordinates)) ? $value->coordinates->coordinates[1]: null;
-						$data[$key][] = (!empty($value->coordinates)) ? $value->coordinates->coordinates[0]: null;
-						$data[$key][] = $key;
-						$data[$key][] = $value->user->profile_image_url;
-						$data[$key][] = '<div>' .$value->text. ' <span>'. date('Y-m-d H:s', strtotime($value->created_at)).'</span></div>';
-
-					}
-				}
-    	return view('twitter',['twitterData'=> $data, 'lat'=>$latitude, 'long'=> $longitude]);
+    		return view('twitter',['twitterData'=> $data, 'lat'=>$latitude, 'long'=> $longitude]);
+    	} catch(Exception $e) {
+    		Log::error('Tweet Result:', ['error' => $e->getMessage()]);
+    	}
     }
 
     

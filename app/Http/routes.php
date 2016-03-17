@@ -12,11 +12,12 @@
 */
 
 Route::get('/', function () {
-	return Twitter::getUserTimeline(['screen_name' => 'thujohn', 'count' => 20, 'format' => 'json']);
+	// return Twitter::getUserTimeline(['screen_name' => 'thujohn', 'count' => 20, 'format' => 'json']);
     // return view('welcome');
+    return redirect()->route('tweets');
 });
 Route::get('search', ['uses' => 'TwitterController@getsearch', 'as' => 'search']);
-Route::get('twitter', ['uses' => 'TwitterController@gettweet', 'as' => 'twitter']);
+Route::get('tweets', ['uses' => 'TwitterController@gettweet', 'as' => 'tweets']);
  // Route::get('search', 'TwitterController@search');
 /*
 |--------------------------------------------------------------------------
