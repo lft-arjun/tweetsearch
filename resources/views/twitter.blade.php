@@ -81,7 +81,7 @@
 	          type: 'poly'
 	        };
 	        // var shape = {
-	        //   coords: [beach[1], beach[2], 200000000],
+	        //   coords: [beach[1], beach[2], 500000],
 	        //   type: 'circle'
 	        // };
 	
@@ -90,9 +90,10 @@
 				position: {lat: beach[1], lng: beach[2]},
 				map: map,
 				icon: image,
-				shape: shape,
 				title: beach[0],
-				zIndex: beach[3]
+				zIndex: beach[3],
+				shape: shape,
+				// animation:google.maps.Animation.BOUNCE
 			})
 
 			// Allow each marker to have an info window    

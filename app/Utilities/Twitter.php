@@ -32,7 +32,7 @@ class Twitter
 				$data[$key][] = null;
 				$data[$key][] = (!empty($value->coordinates)) ? $value->coordinates->coordinates[1]: null;
 				$data[$key][] = (!empty($value->coordinates)) ? $value->coordinates->coordinates[0]: null;
-				$data[$key][] = $key;
+				$data[$key][] = $key+1;
 				$data[$key][] = $value->user->profile_image_url;
 				$data[$key][] = '<div>' .$value->text. '  When <span>'. date('Y-m-d H:s', strtotime($value->created_at)).'</span></div>';
 
