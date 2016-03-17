@@ -16,7 +16,7 @@ Route::get('/', function () {
     // return view('welcome');
 });
 Route::get('search', ['uses' => 'TwitterController@getsearch', 'as' => 'search']);
-Route::post('twitter', ['uses' => 'TwitterController@posttweet', 'as' => 'twitter']);
+Route::get('twitter', ['uses' => 'TwitterController@gettweet', 'as' => 'twitter']);
  // Route::get('search', 'TwitterController@search');
 /*
 |--------------------------------------------------------------------------

@@ -7,9 +7,9 @@
 	    	<div id="map"></div>
 	    	<div class="row">
 	    	<div class="col-sm-12">
-		    	<form class="form-inline" method="post" action="{{route('twitter')}}">
+		    	<form class="form-inline" method="get" action="/twitter">
 					<div class="form-group">
-						<input type="text" name="search" class="form-control input-sm" placeholder="by City"/>
+						<input type="text" name="search" class="form-control input-sm" placeholder="Search Tweets By City"/>
 					</div>
 					<button type="submit" class="btn btn-primary">Search</button>
 				</form>
@@ -34,6 +34,27 @@
 
         setMarkers(map);
       }
+
+
+      // Try HTML5 geolocation.
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     var pos = {
+  //       lat: position.coords.latitude,
+  //       lng: position.coords.longitude
+  //     };
+
+  //     infoWindow.setPosition(pos);
+  //     infoWindow.setContent('Location found.');
+  //     map.setCenter(pos);
+  //   }, function() {
+  //     handleLocationError(true, infoWindow, map.getCenter());
+  //   });
+  // } else {
+  //   // Browser doesn't support Geolocation
+  //   handleLocationError(false, infoWindow, map.getCenter());
+  // }
+
 	  // var beaches = <?php echo json_encode($twitterData) ?>;
       
       function setMarkers(map) {
