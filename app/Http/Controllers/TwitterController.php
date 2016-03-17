@@ -8,23 +8,13 @@ use App\Http\Requests;
 use App\Utilities\Twitter;
 use App\Utilities\GeoLocation;
 use Log;
-
+/**
+ * Twitter Controller Class
+ * Handle all the twitter api
+ * Related operations
+ */
 class TwitterController extends Controller
 {
-    
-    public function getsearch()
-    {
-    	// $ip = file_get_contents('https://api.ipify.org');
-    	// echo "My public IP address is: " . $ip;
-    	// $geoCode = unserialize (file_get_contents('http://www.geoplugin.net/php.gp?ip='.$ip));
-
-    	dd($geoCode);
-    	// $ob = new Twitter();
-    	// dd($ob->getTweetsByPlace());
-    	// // $data = $this->getResponseFromT();
-    	// // dd($data);
-    	// return view('searchform');
-    }
     /**
      * Fetch tweets from twitter search api
      * 
@@ -34,6 +24,11 @@ class TwitterController extends Controller
     public function gettweet(Request $request)
     {
     	try {
+    		/**
+    		 *  get current geo location by default
+    		 *  (while land the page) and display map with tweets
+    		 * @var GeoLocation
+    		 */
 	    	$geoObj = new GeoLocation();
 	    	$geoInfo = $geoObj->getLocationInfoByPublicId();
 	    	$latitude = $geoInfo['geoplugin_latitude'];
@@ -63,7 +58,14 @@ class TwitterController extends Controller
     		Log::error('Tweet Result:', ['error' => $e->getMessage()]);
     	}
     }
-
+    /**
+     * Proccess to get tweets data 
+     * By latitude and longitude
+     * 
+     * @param   decimal $latitude  
+     * @param   decimal $longitude
+     * @return  array $data
+     */
     private function processTweets($latitude, $longitude)
     {
     	$objects = new Twitter();

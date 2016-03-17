@@ -28,8 +28,6 @@
       // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
       // to the base of the flagpole.
       // 
-      
-
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
@@ -37,29 +35,10 @@
         });
         setMarkers(map);
       }
-
-
-      // Try HTML5 geolocation.
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var pos = {
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //     };
-
-  //     infoWindow.setPosition(pos);
-  //     infoWindow.setContent('Location found.');
-  //     map.setCenter(pos);
-  //   }, function() {
-  //     handleLocationError(true, infoWindow, map.getCenter());
-  //   });
-  // } else {
-  //   // Browser doesn't support Geolocation
-  //   handleLocationError(false, infoWindow, map.getCenter());
-  // }
-
-	  // var beaches = <?php echo json_encode($twitterData) ?>;
-      
+      /**
+       * Set marker
+       * @param {[type]} map [description]
+       */
       function setMarkers(map) {
    
         // Display multiple markers on a map

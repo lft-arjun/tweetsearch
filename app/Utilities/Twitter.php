@@ -8,9 +8,21 @@ use App\TwitterAPIExchange;
 */
 class Twitter
 {
+	/**
+	 * [$latitude description]
+	 * @var [type]
+	 */
 	public $latitude;
+	/**
+	 * [$longitude description]
+	 * @var [type]
+	 */
 	public $longitude;
-
+	/**
+	 * [getTweetsByCity fetch tweets by city with respect to lat, lat and 50km arround]
+	 * 
+	 * @return array $data
+	 */
 	public function getTweetsByCity()
 	{
 		try {
