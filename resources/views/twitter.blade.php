@@ -70,23 +70,24 @@
 			var image = {
 				url: beach[4],
 				// This marker is 20 pixels wide by 32 pixels high.
-				size: new google.maps.Size(20, 32),
+				size: new google.maps.Size(80, 80),
 				// The origin for this image is (0, 0).
 				origin: new google.maps.Point(0, 0),
 				// The anchor for this image is the base of the flagpole at (0, 32).
-				anchor: new google.maps.Point(0, 32)
+				anchor: new google.maps.Point(17, 34),
+				scaledSize: new google.maps.Size(71, 71)
 	        };
 	        // Shapes define the clickable region of the icon. The type defines an HTML
 	        // <area> element 'poly' which traces out a polygon as a series of X,Y points.
 	        // The final coordinate closes the poly by connecting to the first coordinate.
-	        var shape = {
-	          coords: [1, 1, 1, 20, 18, 20, 18, 1],
-	          type: 'poly'
-	        };
 	        // var shape = {
-	        //   coords: [beach[1], beach[2], 500000],
-	        //   type: 'circle'
+	        //   coords: [1, 1, 1, 20, 18, 20, 18, 1],
+	        //   type: 'poly'
 	        // };
+	        var shape = {
+	          coords: [beach[1], beach[2], 50000],
+	          type: 'circle'
+	        };
 	
            
 			marker = new google.maps.Marker({
@@ -96,7 +97,7 @@
 				title: beach[0],
 				zIndex: beach[3],
 				shape: shape,
-				animation:google.maps.Animation.BOUNCE
+				// animation:google.maps.Animation.BOUNCE
 			})
 
 			// Allow each marker to have an info window    
@@ -115,6 +116,4 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd84SRSI_zX3M86W7SXWhf4KL8pS0NFdU&callback=initMap">
     </script>
     
- <!--  </body>
-</html> -->
 @endsection
