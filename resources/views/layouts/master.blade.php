@@ -10,8 +10,42 @@
             padding: 0;
           }*/
           #map {
-            height: 100%;
+            height: 80%;
           }
+          .tweets-page{
+            position:  relative;
+          }
+         .tweets-page h1{
+    position: absolute;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+}
+.tweets-page .form-group .form-control{
+  box-shadow: 0;
+  border: 1px solid #c8c8c8;
+  padding:5px;
+  border-radius: 0;
+
+}
+.tweets-page button{
+  border-radius: 0;
+  background: #4285f4;
+  color: #fff;
+  width: 48.7%;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+}
+
+.custom-input{
+  width: 80%;
+}
+.no-h-padding{
+padding-left: 0 !important;
+padding-right: 0 !important;
+}
+
         </style>
  
         <!-- Latest compiled and minified CSS -->

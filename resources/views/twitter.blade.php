@@ -3,19 +3,20 @@
 @section('title', 'Page Title')
 @section('content')
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-12 tweets-page">
 		<h1 class="text-center">Tweets about <?php echo $city; ?></h1>
     	<div id="map"></div>
-    	<div class="row">
-    	<div class="col-sm-12">
-	    	<form class="form-inline" method="get" action="/tweets">
-				<div class="form-group">
-					<input type="text" name="search" class="form-control input-sm" placeholder="Search Tweets By City"/>
+	    	<form method="get" action="/tweets">
+	    	<div class="search-form">
+				<div class="form-group col-xs-12 col-sm-8 col-md-9 col-lg-10 no-h-padding">
+					<input type="text" name="search" class="form-control" placeholder="Search Tweets By City"/>
 				</div>
-				<button type="submit" class="btn btn-primary">Search</button>
+				<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 no-h-padding">
+					<button type="submit" class="btn btn-primary">Search</button>
+					<button type="submit" class="btn btn-primary">History</button>
+				</div>
+				</div>
 			</form>
-		</div>
-		</div>
     </div>
 
 </div>
@@ -26,6 +27,8 @@
       // The following example creates complex markers to indicate beaches near
       // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
       // to the base of the flagpole.
+      // 
+      
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
