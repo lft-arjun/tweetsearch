@@ -4,7 +4,7 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12 tweets-page">
-		<h1 class="text-center">Tweets about <?php echo $city; ?></h1>
+		<h3 class="text-center">TWEET ABOUT <?php echo strtoupper($city); ?></h3>
     	<div id="map"></div>
 	    	<form method="get" action="/tweets">
 	    	<div class="search-form">
@@ -32,7 +32,7 @@
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
+          zoom: 13,
           center: {lat: lats , lng: longs }
         });
         setMarkers(map);
@@ -96,7 +96,7 @@
 				title: beach[0],
 				zIndex: beach[3],
 				shape: shape,
-				// animation:google.maps.Animation.BOUNCE
+				animation:google.maps.Animation.BOUNCE
 			})
 
 			// Allow each marker to have an info window    
