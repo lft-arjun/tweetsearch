@@ -8,7 +8,7 @@
     	<div id="map"></div>
     	<div class="row">
     	<div class="col-sm-12">
-	    	<form class="form-inline" method="get" action="/twitter">
+	    	<form class="form-inline" method="get" action="/tweets">
 				<div class="form-group">
 					<input type="text" name="search" class="form-control input-sm" placeholder="Search Tweets By City"/>
 				</div>
