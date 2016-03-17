@@ -3,7 +3,8 @@ namespace App\Utilities;
 
 use App\TwitterAPIExchange;
 /**
-* 
+*  Interact with Twitter API
+*  
 */
 class Twitter
 {
@@ -17,24 +18,16 @@ class Twitter
 			$longitude = $this->longitude;
 
 			$km = env('TWITTER_SEARCH_AROUND_DIST');
-			$settings = array(
-			    'oauth_access_token' => env('TWITTER_ACCESS_TOKEN'),//"546974375-3Blkj072NWAnyZCV1HZpv870KChdiHc4eaaLwV9g",
-			    'oauth_access_token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'),//"DEjXEuNj8HtsTn4DH283FbV3YzthzZNqVTI02OlnxreEf",
-			    'consumer_key' => env('TWITTER_CONSUMER_KEY'),//"Gki3J8QKp0AZ3AjSAmf2myUO0",
-			    'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),//"7WNIuas3VzConhgcCXuXRE3IIEOLHxIU3rIGBMGmQ7z44DDkfu"
-				);
-			$url = 'https://api.twitter.com/1.1/search/tweets.json';
+			// $url = 'https://api.twitter.com/1.1/search/tweets.json';
+			$uri = 'search/tweets.json';
+			$url = $this->buildTwitterAPIUrl($uri);
 			$getfield = "?q=''&geocode=".$latitude .",".$longitude ."," .$km.'"';
 			$requestMethod = 'GET';
-
-			$twitter = new TwitterAPIExchange($settings);
-			$response = $twitter->setGetfield($getfield)
-			    ->buildOauth($url, $requestMethod)
-			    ->performRequest();
-
-			$twitterData = json_decode($response);
 			
+			$twitterData = $this->processInTwitterAPI($url,$requestMethod, $getfield);
+		
 			$data = array();
+
 			foreach ($twitterData->statuses as $key => $value) {
 				$data[$key][] = null;
 				$data[$key][] = (!empty($value->coordinates)) ? $value->coordinates->coordinates[1]: null;
@@ -49,5 +42,50 @@ class Twitter
 			throw new Exception("Error Processing Request while fetching tweets from twitter API", 1);
 			
 		}
+	}
+	/**
+	 * [processInTwitterAPI description]
+	 * @param  string $url
+	 * @param  string $requestMethod 
+	 * @param  string $getfield 
+	 * @return array $twitterData
+	 */
+	public function processInTwitterAPI($url, $requestMethod, $getfield)
+	{
+		$settings = $this->getSettings();
+		$twitter = new TwitterAPIExchange($settings);
+		$response = $twitter->setGetfield($getfield)
+		    ->buildOauth($url, $requestMethod)
+		    ->performRequest();
+
+		$twitterData = json_decode($response);
+
+		return $twitterData;
+	}
+	/**
+	 * [buildTwitterAPIUrl description]
+	 * @param  string $uri
+	 * @return string   full url
+	 */
+	public function buildTwitterAPIUrl($uri)
+	{
+		$fullUrl = env('TWITTER_API_URL') .''.$uri;
+		return $fullUrl;
+	}
+	/**
+	 * API key from Twitter
+	 * 
+	 * @return array settings
+	 */
+	private function getSettings()
+	{
+		$settings = array(
+		    'oauth_access_token' => env('TWITTER_ACCESS_TOKEN'),
+		    'oauth_access_token_secret' => env('TWITTER_ACCESS_TOKEN_SECRET'),
+		    'consumer_key' => env('TWITTER_CONSUMER_KEY'),
+		    'consumer_secret' => env('TWITTER_CONSUMER_SECRET'),
+			);
+
+		return $settings;
 	}
 }

@@ -34,13 +34,18 @@ class TwitterController extends Controller
     public function gettweet(Request $request)
     {
     	try {
-	    	$data = array();
 	    	$geoObj = new GeoLocation();
 	    	$geoInfo = $geoObj->getLocationInfoByPublicId();
 	    	$latitude = $geoInfo['geoplugin_latitude'];
 	    	$longitude = $geoInfo['geoplugin_longitude'];
+
+	    	$data = $this->processTweets($latitude, $longitude);
+
 		    $city = $request->get('search');
-	    	if ($city){
+		    if (empty($city)) {
+		    	$city = $geoInfo['geoplugin_city'];
+
+		    } else {
 	    		//Get latitude and longitude from city 
 		    	$response = \GoogleMaps::load('geocoding')
 		        ->setParam (['address' => $city])
@@ -50,18 +55,23 @@ class TwitterController extends Controller
 		        
 		        $latitude = $stdClassObj->results[0]->geometry->location->lat;
 		        $longitude = $stdClassObj->results[0]->geometry->location->lng;
-
-		        $objects = new Twitter();
-		        $objects->latitude = $latitude;
-		        $objects->longitude = $longitude;
-				$data = $objects->getTweetsByCity();
-
+		        $data = $this->processTweets($latitude, $longitude);
 			}
 
-    		return view('twitter',['twitterData'=> $data, 'lat'=>$latitude, 'long'=> $longitude]);
+    		return view('twitter',['twitterData'=> $data, 'lat'=>$latitude, 'long'=> $longitude, 'city' => $city]);
     	} catch(Exception $e) {
     		Log::error('Tweet Result:', ['error' => $e->getMessage()]);
     	}
+    }
+
+    private function processTweets($latitude, $longitude)
+    {
+    	$objects = new Twitter();
+        $objects->latitude = $latitude;
+        $objects->longitude = $longitude;
+		$data = $objects->getTweetsByCity();
+
+		return $data;
     }
 
     
