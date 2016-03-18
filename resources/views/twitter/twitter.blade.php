@@ -4,7 +4,7 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12 tweets-page">
-		<h3 class="text-center">TWEET ABOUT <?php echo strtoupper($city); ?></h3>
+		<h3 class="text-center">TWEETS ABOUT <?php echo strtoupper($city); ?></h3>
     	<div id="map"></div>
 	    	<form method="get" action="/tweets">
 	    	<div class="search-form">
@@ -24,22 +24,22 @@
     var lats=<?php echo $lat; ?>;
     var longs = <?php echo $long; ?>;
     var beaches = <?php echo json_encode($twitterData) ?>;
-      // The following example creates complex markers to indicate beaches near
-      // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
-      // to the base of the flagpole.
-      // 
-      function initMap() {
+	// The following example creates complex markers to indicate beaches near
+	// Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+	// to the base of the flagpole.
+	// 
+    function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 13,
           center: {lat: lats , lng: longs }
         });
         setMarkers(map);
-      }
+     }
       /**
        * Set marker
        * @param {[type]} map [description]
        */
-      function setMarkers(map) {
+    function setMarkers(map) {
    
         // Display multiple markers on a map
     	var infoWindow = new google.maps.InfoWindow(), marker, i, beach;
@@ -89,10 +89,7 @@
 	        })(marker, i));
         }
 
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd84SRSI_zX3M86W7SXWhf4KL8pS0NFdU&callback=initMap">
+    }
     </script>
     
 @endsection
